@@ -324,7 +324,7 @@ void task_4(void)
 	char fval2[64];
 	char trans2[64];
 
-	while (ucx_pipe_size(p4) < 1); // A MESMA DÚVIDA DE DE CIMA, MAS PARA DIMERIZAÇÃO
+	while (ucx_pipe_size(p4) < 1); 
 
 		fval2 = ucx_pipe_read(p4, trans2, ucx_pipe_size(p4)); 
 
