@@ -200,7 +200,7 @@ void task_2(void)
 
 void task_5(void)
 {
-	char fval[64]
+	char fval[64];
 	char fval1[64];
 	char fval2[64];
 	char trans1[64];
