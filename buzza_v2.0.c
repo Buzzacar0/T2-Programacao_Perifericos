@@ -196,17 +196,22 @@ void task_2(void)
 	}
 }
 
+	// val = atoi(buf) - string para inteiro
+	// sprintf(buf, "%d", val) - inteiro para string
+	// fval = atof(buf) - string para float
+	// ftoa(fval, buf, 6)
+
 void task_5(void)
 {
 	char fval[64];
-	char fval1[64];
-	char fval2[64];
+	uint16_t fval1;
+	uint16_t fval2;
 	char trans1[64];
 	char trans2[64];
-	float data1;
-	float data2;
-	float tmp;
-	float luxin; 
+	int data1;
+	int data2;
+	int tmp;
+	int luxin; 
 	
 // LUX 80/1000
 // TEMP 0/40
@@ -217,7 +222,7 @@ void task_5(void)
 
 				fval1 = ucx_pipe_read(p1, fval, ucx_pipe_size(p1));
 
-				tmp = atof(fval1 - 1);
+				tmp = atoi(fval1 - 1);
 				
 				if(tmp == 0){
 					data1 = 0;
@@ -237,7 +242,7 @@ void task_5(void)
 					data1 = 999;
 				}
 
-				ftoa(data1, trans1, 6);
+				sprintf(trans1, "%d", data1);
 
 				/* write pipe - write size must be less than buffer size */
 				ucx_pipe_write(p3, trans1, strlen((char *)trans1) + 1);
@@ -249,7 +254,7 @@ void task_5(void)
 			/* read pipe - read size must be less than buffer size */
 			fval2 = ucx_pipe_read(p2, fval, ucx_pipe_size(p2));
 
-			luxin = atof(fval2 - 1);
+			luxin = atoi(fval2 - 1);
 
 			if(luxin == 0){
 					data2 = 0;
@@ -267,7 +272,7 @@ void task_5(void)
 					data2 = 999;
 				}
 
-			ftoa(data2, trans2, 6);
+			sprintf(trans2, "%d", data2);
 			
 			/* write pipe - write size must be less than buffer size */
 			ucx_pipe_write(p4, trans2, strlen((char *)trans2) + 1);
@@ -282,9 +287,9 @@ void task_3(void)
 {
 	printf("Oi to no 3!!\n");
 
-	float duty = 0;
+	int duty = 0;
 	char trans1[64];
-	char fval1[64];
+	uint16_t fval1;
 
 	
 	pwm_config();
@@ -294,7 +299,7 @@ void task_3(void)
 
 			fval1 = ucx_pipe_read(p3, trans1, ucx_pipe_size(p3)); 
 
-			duty = atof(fval1 - 1);
+			duty = atoi(fval1 - 1);
 
 			while (duty < 999) {
 				TIM4->CCR4 = duty;
@@ -318,15 +323,15 @@ void task_4(void)
 {
 	printf("T4 Comeca\n");
 
-	float duty = 0;
-	char fval2[64];
+	int duty = 0;
 	char trans2[64];
+	uint16_t fval2;
 
 	while (ucx_pipe_size(p4) < 1); 
 
 		fval2 = ucx_pipe_read(p4, trans2, ucx_pipe_size(p4)); 
 
-		duty = atof(fval2 - 1);
+		duty = atoi(fval2 - 1);
 
 		TIM4->CCR3 = duty;
 		ucx_task_delay(50);
