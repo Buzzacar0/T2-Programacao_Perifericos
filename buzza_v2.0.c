@@ -321,14 +321,14 @@ void task_4(void)
 	printf("T4 Comeca\n");
 
 	float duty = 0;
-	char fval[64];
+	char fval2[64];
 	char trans2[64];
 
 	while (ucx_pipe_size(p4) < 1); // A MESMA DÚVIDA DE DE CIMA, MAS PARA DIMERIZAÇÃO
 
-		fval1 = ucx_pipe_read(p4, trans2, ucx_pipe_size(p4)); 
+		fval2 = ucx_pipe_read(p4, trans2, ucx_pipe_size(p4)); 
 
-		duty = atof(fval1 - 1);
+		duty = atof(fval2 - 1);
 
 		TIM4->CCR3 = duty;
 		ucx_task_delay(50);
