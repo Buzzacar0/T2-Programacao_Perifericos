@@ -1,6 +1,4 @@
 #include <ucx.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 struct sem_s *adc_mtx;
 struct sem_s1 *pwm_mtx;
